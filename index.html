@@ -1,11 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OLX Pakistan</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <!-- <img
+          src="https://upload.wikimedia.org/wikipedia/commons/4/4a/OLX_Logo.png"
+          alt="Logo"
+          width="40"
+        /> -->
+        <span>
+          <svg
+            height="20"
+            viewBox="0 0 36.289 20.768"
+            alt="Logo"
+            class="_8113da19"
+          >
+            <path
+              d="M18.9 20.77V0h4.93v20.77zM0 10.39a8.56 8.56 0 1 1 8.56 8.56A8.56 8.56 0 0 1 0 10.4zm5.97-.01a2.6 2.6 0 1 0 2.6-2.6 2.6 2.6 0 0 0-2.6 2.6zm27 5.2l-1.88-1.87-1.87 1.88H25.9V12.3l1.9-1.9-1.9-1.89V5.18h3.27l1.92 1.92 1.93-1.92h3.27v3.33l-1.9 1.9 1.9 1.9v3.27z"
+            ></path>
+          </svg>
+        </span>
+      </div>
+
+      <nav class="nav-links">
+        <a href="#"
+          ><img
+            src="https://www.olx.com.pk/assets/iconMotors.6bf280165e43e55b173d0a53551e2bfb.png"
+            alt=""
+          /><span>Motors</span>
+        </a>
+        <a href="#"
+          ><img
+            src="https://www.olx.com.pk/assets/iconProperty.d09c6d2e3621f900c17c9e8330a1a37b.png"
+            alt=""
+          />
+          <span>Property</span>
+        </a>
+      </nav>
+
+      <div class="location-search">
+        <select>
+          <option>Pakistan</option>
+          <option>Karachi</option>
+          <option>Lahore</option>
+        </select>
+
+        <div class="search-bar">
+          <input
+            type="text"
+            placeholder="Find Cars, Mobile Phones and more..."
+          />
+          <button>Search</button>
+        </div>
+      </div>
+
+      <div class="auth-buttons">
+        <button id="openLoginBtn">Login</button>
+        <a href="#" class="sell-btn">+ SELL</a>
+      </div>
+
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </header>
+
+    <div class="categories">
+      <a href="#">All Categories</a>
+      <a href="#">Mobile Phones</a>
+      <a href="#">Cars</a>
+      <a href="#">Motorcycles</a>
+      <a href="#">Houses</a>
+      <a href="#">Video-Audios</a>
+      <a href="#">Tablets</a>
+      <a href="#">Land & Plots</a>
+    </div>
+    <div id="products-container"></div>
+    <!-- model -->
+    <!-- Trigger buttons -->
+    <!-- <button id="openSignupBtn">Open Signup</button> -->
+
+    <!-- Overlay -->
+    <div class="modal-overlay" id="modalOverlay">
+      <div class="modal" id="loginModal">
+        <span class="close-btn" id="closeLoginBtn">×</span>
+        <h2>Login</h2>
+        <input type="email" placeholder="Email" required />
+        <input type="password" placeholder="Password" required />
+        <button id="loginBtn">Login</button>
+        <div class="switch">
+          Don't have an account? <a href="#" id="switchToSignup">Sign Up</a>
+        </div>
+      </div>
+
+      <div class="modal" id="signupModal" style="display: none">
+        <span class="close-btn" id="closeSignupBtn">×</span>
+        <h2>Sign Up</h2>
+        <input type="text" placeholder="Username" required />
+        <input type="email" placeholder="Email" required />
+        <input type="password" placeholder="Password" required />
+        <button id="signupBtn">Sign Up</button>
+        <div class="switch">
+          Already have an account? <a href="#" id="switchToLogin">Login</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-top">
+        <div class="footer-column">
+          <h4>Popular Categories</h4>
+          <a href="#">Cars</a>
+          <a href="#">Flats for rent</a>
+          <a href="#">Mobile Phones</a>
+          <a href="#">Jobs</a>
+        </div>
+
+        <div class="footer-column">
+          <h4>Trending Searches</h4>
+          <a href="#">Bikes</a>
+          <a href="#">Watches</a>
+          <a href="#">Books</a>
+          <a href="#">Dogs</a>
+        </div>
+
+        <div class="footer-column">
+          <h4>About Us</h4>
+          <a href="#">About Dubizzle Group</a>
+          <a href="#">OLX Blog</a>
+          <a href="#">Contact Us</a>
+          <a href="#">OLX for Businesses</a>
+        </div>
+
+        <div class="footer-column">
+          <h4>OLX</h4>
+          <a href="#">Help</a>
+          <a href="#">Sitemap</a>
+          <a href="#">Terms of use</a>
+          <a href="#">Privacy Policy</a>
+        </div>
+
+        <div class="footer-column">
+          <h4>Follow Us</h4>
+          <div class="social-icons">
+            <a href="#">X</a>
+            <a href="#">f</a>
+            <a href="#">▶</a>
+            <a href="#">O</a>
+          </div>
+          <a href="#" class="back-to-top">↑ Back to top</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">Classifieds in Pakistan. © 2006–2025 OLX</div>
+    </footer>
+    <script type="module" src="./modal.js"></script>
+    <script type="module" src="./config.js"></script>
+    <script type="module" src="./app.js"></script>
+  </body>
 </html>
