@@ -9,6 +9,11 @@ import { hideLoader, showLoader, openLoginBtn } from "./modal.js";
 
 let signupBtn = document.getElementById("signupBtn");
 let loginBtn = document.getElementById("login-Btn");
+let profileImg = document.getElementById("profile-id");
+let userDetails = document.getElementById("details");
+let loggedUserNameDiv = document.getElementById("logged-username");
+let showDetails = true;
+const logoutBtn = document.getElementById("logoutBtn");
 
 // Sign Up Logic
 
@@ -47,6 +52,8 @@ loginBtn.addEventListener("click", () => {
       const user = userCredential.user;
       hideLoader();
       swal("success", "Logged In Successfully", "success");
+      profileImg.classList.remove("hide");
+
       // ...
     })
     .catch((error) => {
@@ -61,24 +68,45 @@ function logUserOut() {
   signOut(auth)
     .then(() => {
       // Sign-out successful.
-      alert("User log out ho chuka he");
+      swal("success", "Logged Out Successfully", "info");
+      profileImg.classList.add("hide");
+      userDetails.classList.add("hide");
     })
     .catch((error) => {
       // An error happened.
       console.log("log out nh hua ");
     });
 }
+logoutBtn.addEventListener("click", logUserOut);
 
 // check current user
-const auth = getAuth();
 onAuthStateChanged(auth, (user) => {
   if (user) {
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/auth.user
     const uid = user.uid;
+
+    openLoginBtn.style.display = "none";
+    profileImg.style.display = "block";
+    loggedUserNameDiv.innerText = uid;
+    console.log("user login he");
+
     // ...
   } else {
     // User is signed out
+    openLoginBtn.style.display = "block";
+    profileImg.style.display = "none";
+    console.log("user dafa hogya he");
     // ...
+  }
+});
+
+profileImg.addEventListener("click", () => {
+  if (showDetails) {
+    userDetails.classList.remove("hide");
+    showDetails = false;
+  } else {
+    userDetails.classList.add("hide");
+    showDetails = true;
   }
 });
