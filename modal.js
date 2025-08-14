@@ -12,6 +12,8 @@ const closeSignupBtn = document.getElementById("closeSignupBtn");
 const switchToSignup = document.getElementById("switchToSignup");
 const switchToLogin = document.getElementById("switchToLogin");
 
+const hamburger = document.querySelector("#hamburger");
+
 // Open modal
 openLoginBtn.addEventListener("click", () => {
   modalOverlay.style.display = "flex";
@@ -46,3 +48,9 @@ switchToLogin.addEventListener("click", (e) => {
   signupModal.style.display = "none";
   loginModal.style.display = "block";
 });
+
+function toggleMenu() {
+  document.querySelector("header").classList.toggle("active");
+}
+
+hamburger.addEventListener("click", toggleMenu);
