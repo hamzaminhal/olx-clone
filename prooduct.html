@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Suzuki GS 160 SE 2022 Model | OLX Pakistan</title>
+    <link rel="stylesheet" href="./styles/product.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="left-column">
+        <!-- Image Gallery -->
+        <div class="image-gallery">
+          <div class="main-image">
+            <img
+              src="https://images.olx.com.pk/thumbnails/385573456-800x600.webp"
+              alt="Suzuki GS 160 SE"
+            />
+          </div>
+          <div class="thumbnail-container">
+            <div class="thumbnail active">
+              <img
+                src="https://images.olx.com.pk/thumbnails/385573456-800x600.webp"
+                alt="Thumbnail 1"
+              />
+            </div>
+            <div class="thumbnail">
+              <img
+                src="https://images.olx.com.pk/thumbnails/385573457-800x600.webp"
+                alt="Thumbnail 2"
+              />
+            </div>
+            <div class="thumbnail">
+              <img
+                src="https://images.olx.com.pk/thumbnails/385573458-800x600.webp"
+                alt="Thumbnail 3"
+              />
+            </div>
+            <div class="thumbnail">
+              <img
+                src="https://images.olx.com.pk/thumbnails/385573459-800x600.webp"
+                alt="Thumbnail 4"
+              />
+            </div>
+          </div>
+        </div>
+        <!-- Product Header -->
+        <div class="product-header">
+          <div class="product-price">Rs 4.09 Lac</div>
+          <h1 class="product-title">
+            Suzuki GS 160 SE 2022 Model | Suzuki in bikes | GS 160 SE
+          </h1>
+          <hr />
+        </div>
+
+        <!-- Product Details -->
+        <div class="product-details">
+          <h2 class="section-title">Details</h2>
+          <table class="details-table">
+            <tr>
+              <td>Name</td>
+              <td><strong>Suzuki</strong></td>
+            </tr>
+            <tr>
+              <td>Model</td>
+              <td><strong>GS 160 SE</strong></td>
+            </tr>
+            <tr>
+              <td>Year</td>
+              <td>2022</td>
+            </tr>
+            <tr>
+              <td>Engine Type</td>
+              <td>4 800s</td>
+            </tr>
+          </table>
+          <hr />
+
+          <div class="ad-info">
+            <p><strong>Ad ID: 1104487363</strong></p>
+            <a href="#" class="report-link">Report this ad</a>
+          </div>
+        </div>
+
+        <!-- Promo Section -->
+        <div class="promo-section">
+          <h3 class="promo-title">Blaze - Aagay Barhnay ki Adat</h3>
+          <p class="promo-text">Find the best Lubricant for your Bike</p>
+          <a href="#" class="learn-more">LEARN MORE</a>
+        </div>
+      </div>
+
+      <!-- Right Column - Owner Info -->
+      <div class="right-column">
+        <div class="owner-card">
+          <div class="owner-header">
+            <div class="owner-avatar">
+              <img
+                src="https://randomuser.me/api/portraits/men/42.jpg"
+                alt="Owner"
+              />
+            </div>
+            <div>
+              <div class="owner-name">Ali Khan</div>
+              <div class="owner-status">Member since Jan 2020</div>
+            </div>
+          </div>
+
+          <a href="#" class="contact-btn">
+            <i class="fas fa-phone-alt"></i> Show Phone Number
+          </a>
+
+          <div class="owner-details">
+            <p><strong>About the seller:</strong></p>
+            <p>
+              Genuine bike seller with 5 years of experience. All bikes are
+              properly maintained and verified.
+            </p>
+          </div>
+
+          <div class="member-since">
+            <i class="far fa-user"></i> OLX Member since 2020
+          </div>
+        </div>
+      </div>
+
+      <!-- SEO Info -->
+      <div class="seo-info">SEOINFOX</div>
+    </div>
+
+    <script>
+      // Simple image gallery functionality
+      document.querySelectorAll(".thumbnail").forEach((thumb) => {
+        thumb.addEventListener("click", function () {
+          // Remove active class from all thumbnails
+          document.querySelectorAll(".thumbnail").forEach((t) => {
+            t.classList.remove("active");
+          });
+
+          // Add active class to clicked thumbnail
+          this.classList.add("active");
+
+          // Change main image
+          const thumbImg = this.querySelector("img");
+          const mainImg = document.querySelector(".main-image img");
+          mainImg.src = thumbImg.src;
+        });
+      });
+    </script>
+  </body>
+</html>

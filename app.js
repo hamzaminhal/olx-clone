@@ -27,6 +27,7 @@ signupBtn.addEventListener("click", (e) => {
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
+      swal("Error", `${errorCode} => ${errorMessage}`, "error");
       console.log(errorCode, "=>", errorMessage);
       // ..
     });
@@ -49,6 +50,6 @@ loginBtn.addEventListener("click", () => {
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      swal("Warning", `Signed Up Invalid Credentials${errorMessage}`, "error");
+      swal("Error", `${errorCode} => ${errorMessage}`, "error");
     });
 });
