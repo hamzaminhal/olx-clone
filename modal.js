@@ -65,4 +65,4 @@ function hideLoader() {
   document.getElementById("loader").classList.remove("active");
 }
 
-export { showLoader, hideLoader, openLoginBtn };
+export { showLoader, hideLoader, openLoginBtn, modalOverlay };

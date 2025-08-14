@@ -1,6 +1,9 @@
-import { auth } from "./config.js";
+import { auth, db } from "./config.js";
 import {
+  addDoc,
+  collection,
   createUserWithEmailAndPassword,
+  getDocs,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
@@ -12,11 +15,30 @@ let loginBtn = document.getElementById("login-Btn");
 let profileImg = document.getElementById("profile-id");
 let userDetails = document.getElementById("details");
 let loggedUserNameDiv = document.getElementById("logged-username");
+let loggedEmailDiv = document.getElementById("logged-email");
 let showDetails = true;
 const logoutBtn = document.getElementById("logoutBtn");
+let allUsers = [];
 
-// Sign Up Logic
+// FETCH USERS
+const querySnapshot = await getDocs(collection(db, "users"));
+querySnapshot.forEach((doc) => {
+  allUsers.push(doc.data());
+  console.log(`${doc.id} => `, doc.data());
+});
 
+// CLASS FOR MAKING NEW USERS
+class registerUser {
+  constructor(uid, username, email) {
+    this.uid = uid;
+    this.username = username;
+    this.email = email;
+    this.createdAt = new Date().toISOString();
+    this.myPosts = [];
+  }
+}
+
+// SIGN UP FUNCTION
 signupBtn.addEventListener("click", (e) => {
   let username = document.getElementById("signup-username");
   let email = document.getElementById("signup-email");
@@ -27,6 +49,10 @@ signupBtn.addEventListener("click", (e) => {
     .then((userCredential) => {
       // Signed up
       const user = userCredential.user;
+      let newUser = new registerUser(user.uid, username.value, email.value);
+      addDatatoDb(newUser);
+
+      // addUserToDb(email.value, username.value, user.uid);
       hideLoader();
       swal("success", "Signed Up Successfully", "success");
       // ...
@@ -34,14 +60,15 @@ signupBtn.addEventListener("click", (e) => {
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      swal("Error", `${errorCode} => ${errorMessage}`, "error");
+      swal("Error", errorMessage, "error").then(() => {
+        location.reload();
+      });
       console.log(errorCode, "=>", errorMessage);
       // ..
     });
 });
 
-//Login Logic
-
+//LLOGIN FUNCTION
 loginBtn.addEventListener("click", () => {
   let email = document.getElementById("login-email");
   let password = document.getElementById("login-password");
@@ -50,20 +77,24 @@ loginBtn.addEventListener("click", () => {
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
-      hideLoader();
       swal("success", "Logged In Successfully", "success");
       profileImg.classList.remove("hide");
-
+      loginBtn.classList.add("hide");
+      hideLoader();
+      modalOverlay.style.display = "none";
       // ...
     })
     .catch((error) => {
+      //An error happened.
       const errorCode = error.code;
       const errorMessage = error.message;
-      swal("Error", `${errorCode} => ${errorMessage}`, "error");
+      swal("Error", errorMessage, "error").then(() => {
+        location.reload();
+      });
     });
 });
 
-// Logout Function
+// LOGOUT FUNCTION
 function logUserOut() {
   signOut(auth)
     .then(() => {
@@ -79,28 +110,26 @@ function logUserOut() {
 }
 logoutBtn.addEventListener("click", logUserOut);
 
-// check current user
+// CHECK CURRENT USER
 onAuthStateChanged(auth, (user) => {
   if (user) {
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/auth.user
     const uid = user.uid;
-
     openLoginBtn.style.display = "none";
     profileImg.style.display = "block";
     loggedUserNameDiv.innerText = uid;
-    console.log("user login he");
-
-    // ...
+    loggedEmailDiv.innerText = user.email;
+    // console.log(user);
   } else {
     // User is signed out
     openLoginBtn.style.display = "block";
     profileImg.style.display = "none";
-    console.log("user dafa hogya he");
     // ...
   }
 });
 
+//TOGGLE BUTTON ON PROFILE IMAGE
 profileImg.addEventListener("click", () => {
   if (showDetails) {
     userDetails.classList.remove("hide");
@@ -110,3 +139,18 @@ profileImg.addEventListener("click", () => {
     showDetails = true;
   }
 });
+
+// ADDING DATA TO FIRESTORE
+async function addDatatoDb(newUser) {
+  try {
+    const docRef = await addDoc(collection(db, "users"), {
+      username: newUser.username,
+      email: newUser.email,
+      createdTime: newUser.createdAt,
+      myPosts: newUser.myPosts,
+    });
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+}
