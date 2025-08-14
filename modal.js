@@ -21,11 +21,11 @@ openLoginBtn.addEventListener("click", () => {
   signupModal.style.display = "none";
 });
 
-openSignupBtn.addEventListener("click", () => {
-  modalOverlay.style.display = "flex";
-  loginModal.style.display = "none";
-  signupModal.style.display = "block";
-});
+// openSignupBtn.addEventListener("click", () => {
+//   modalOverlay.style.display = "flex";
+//   loginModal.style.display = "none";
+//   signupModal.style.display = "block";
+// });
 
 // Close modal
 closeLoginBtn.addEventListener("click", () => {
@@ -54,3 +54,15 @@ function toggleMenu() {
 }
 
 hamburger.addEventListener("click", toggleMenu);
+
+// Show loader
+function showLoader() {
+  document.getElementById("loader").classList.add("active");
+}
+
+// Hide loader
+function hideLoader() {
+  document.getElementById("loader").classList.remove("active");
+}
+
+export { showLoader, hideLoader };
