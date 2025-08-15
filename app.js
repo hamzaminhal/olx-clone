@@ -8,7 +8,12 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "./methods.js";
-import { hideLoader, showLoader, openLoginBtn } from "./modal.js";
+import {
+  hideLoader,
+  showLoader,
+  openLoginBtn,
+  postsModelOverly,
+} from "./modal.js";
 
 let signupBtn = document.getElementById("signupBtn");
 let loginBtn = document.getElementById("login-Btn");
@@ -18,7 +23,9 @@ let loggedUserNameDiv = document.getElementById("logged-username");
 let loggedEmailDiv = document.getElementById("logged-email");
 let showDetails = true;
 const logoutBtn = document.getElementById("logoutBtn");
+const postBtn = document.getElementById("post-Btn");
 let allUsers = [];
+let currentUser;
 
 // FETCH USERS
 const querySnapshot = await getDocs(collection(db, "users"));
@@ -29,18 +36,32 @@ querySnapshot.forEach((doc) => {
 
 // CLASS FOR MAKING NEW USERS
 class registerUser {
-  constructor(uid, username, email) {
+  constructor(uid, firstName, lastName, email, phoneNumber) {
     this.uid = uid;
-    this.username = username;
+    this.firstName = firstName;
+    this.lastName = lastName;
     this.email = email;
+    this.phoneNumber = phoneNumber;
     this.createdAt = new Date().toISOString();
     this.myPosts = [];
   }
 }
 
+// CLASS FOR MAKING POSTS
+class post {
+  constructor(image, title, price, description) {
+    (this.img = image),
+      (this.title = title),
+      (this.price = price),
+      (this.description = description);
+  }
+}
+
 // SIGN UP FUNCTION
 signupBtn.addEventListener("click", (e) => {
-  let username = document.getElementById("signup-username");
+  let firstName = document.getElementById("first-name");
+  let lastName = document.getElementById("last-name");
+  let phoneNumber = document.getElementById("phone-number");
   let email = document.getElementById("signup-email");
   let password = document.getElementById("signup-password");
   // create User
@@ -49,12 +70,20 @@ signupBtn.addEventListener("click", (e) => {
     .then((userCredential) => {
       // Signed up
       const user = userCredential.user;
-      let newUser = new registerUser(user.uid, username.value, email.value);
+      let newUser = new registerUser(
+        user.uid,
+        firstName.value,
+        lastName.value,
+        email.value,
+        phoneNumber.value
+      );
       addDatatoDb(newUser);
 
       // addUserToDb(email.value, username.value, user.uid);
       hideLoader();
-      swal("success", "Signed Up Successfully", "success");
+      swal("success", "Signed Up Successfully", "success").then(() => {
+        location.reload();
+      });
       // ...
     })
     .catch((error) => {
@@ -68,7 +97,7 @@ signupBtn.addEventListener("click", (e) => {
     });
 });
 
-//LLOGIN FUNCTION
+//LOGIN FUNCTION
 loginBtn.addEventListener("click", () => {
   let email = document.getElementById("login-email");
   let password = document.getElementById("login-password");
@@ -105,22 +134,24 @@ function logUserOut() {
     })
     .catch((error) => {
       // An error happened.
-      console.log("log out nh hua ");
     });
 }
+
 logoutBtn.addEventListener("click", logUserOut);
 
 // CHECK CURRENT USER
 onAuthStateChanged(auth, (user) => {
   if (user) {
+    currentUser = user;
+    console.log(currentUser);
+
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/auth.user
     const uid = user.uid;
     openLoginBtn.style.display = "none";
     profileImg.style.display = "block";
-    loggedUserNameDiv.innerText = uid;
+    // loggedUserNameDiv.innerText = user.firstName;
     loggedEmailDiv.innerText = user.email;
-    // console.log(user);
   } else {
     // User is signed out
     openLoginBtn.style.display = "block";
@@ -144,24 +175,44 @@ profileImg.addEventListener("click", () => {
 async function addDatatoDb(newUser) {
   try {
     const docRef = await addDoc(collection(db, "users"), {
-      username: newUser.username,
+      uid: newUser.uid,
+      firstName: newUser.firstName,
+      lastName: newUser.lastName,
       email: newUser.email,
+      phoneNumber: newUser.phoneNumber,
       createdTime: newUser.createdAt,
       myPosts: newUser.myPosts,
     });
+
     console.log("Document written with ID: ", docRef.id);
   } catch (e) {
     console.error("Error adding document: ", e);
   }
 }
 
+postBtn.addEventListener("click", () => {
+  let image = "https://images.app.goo.gl/oM4fiszzYjPx4Tej9";
+  let title = document.getElementById("Add-title");
+  let price = document.getElementById("price");
+  let description = document.getElementById("post-details");
+  let newPost = new post(image, title.value, price.value, description.value);
+  console.log(newPost);
+  addPostsToDb(newPost);
+  showLoader();
+});
+
 async function addPostsToDb(post) {
   try {
     const docRef = await addDoc(collection(db, "allPosts"), {
-      username: newUser.username,
-      email: newUser.email,
-      createdTime: newUser.createdAt,
-      myPosts: newUser.myPosts,
+      uid: currentUser.uid,
+      Img: post.img,
+      title: post.title,
+      price: post.price,
+      description: post.description,
+    });
+    swal("success", "Add posted successfully", "success").then(() => {
+      hideLoader();
+      postsModelOverly.style.display = "none";
     });
     console.log("Document written with ID: ", docRef.id);
   } catch (e) {

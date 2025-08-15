@@ -30,12 +30,6 @@ sellBtn.addEventListener("click", () => {
   postsModelOverly.style.display = "flex";
 });
 
-// openSignupBtn.addEventListener("click", () => {
-//   modalOverlay.style.display = "flex";
-//   loginModal.style.display = "none";
-//   signupModal.style.display = "block";
-// });
-
 // Close modal
 closeLoginBtn.addEventListener("click", () => {
   modalOverlay.style.display = "none";
@@ -78,4 +72,4 @@ function hideLoader() {
   document.getElementById("loader").classList.remove("active");
 }
 
-export { showLoader, hideLoader, openLoginBtn, modalOverlay };
+export { showLoader, hideLoader, openLoginBtn, modalOverlay, postsModelOverly };
