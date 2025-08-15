@@ -154,3 +154,17 @@ async function addDatatoDb(newUser) {
     console.error("Error adding document: ", e);
   }
 }
+
+async function addPostsToDb(post) {
+  try {
+    const docRef = await addDoc(collection(db, "allPosts"), {
+      username: newUser.username,
+      email: newUser.email,
+      createdTime: newUser.createdAt,
+      myPosts: newUser.myPosts,
+    });
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+}

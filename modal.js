@@ -2,6 +2,7 @@
 const modalOverlay = document.getElementById("modalOverlay");
 const loginModal = document.getElementById("loginModal");
 const signupModal = document.getElementById("signupModal");
+const postModal = document.getElementById("postModal");
 
 const openLoginBtn = document.getElementById("openLoginBtn");
 const openSignupBtn = document.getElementById("openSignupBtn");
@@ -14,11 +15,19 @@ const switchToLogin = document.getElementById("switchToLogin");
 
 const hamburger = document.querySelector("#hamburger");
 
+const sellBtn = document.getElementById("sellBtn");
+const postsModelOverly = document.getElementById("postsModalOverlay");
+const closePostBtn = document.getElementById("closePostBtn");
+
 // Open modal
 openLoginBtn.addEventListener("click", () => {
   modalOverlay.style.display = "flex";
   loginModal.style.display = "block";
   signupModal.style.display = "none";
+});
+
+sellBtn.addEventListener("click", () => {
+  postsModelOverly.style.display = "flex";
 });
 
 // openSignupBtn.addEventListener("click", () => {
@@ -34,6 +43,10 @@ closeLoginBtn.addEventListener("click", () => {
 
 closeSignupBtn.addEventListener("click", () => {
   modalOverlay.style.display = "none";
+});
+
+closePostBtn.addEventListener("click", () => {
+  postsModelOverly.style.display = "none";
 });
 
 // Switch forms

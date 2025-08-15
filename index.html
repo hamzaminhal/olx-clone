@@ -82,7 +82,7 @@
           </div>
         </div>
         <button id="openLoginBtn">Login</button>
-        <a href="#" class="sell-btn">+ SELL</a>
+        <button id="sellBtn" class="sell-btn">+ SELL</button>
       </div>
 
       <div class="hamburger" id="hamburger">
@@ -242,6 +242,20 @@
         <div class="switch">
           Already have an account? <a href="#" id="switchToLogin">Login</a>
         </div>
+      </div>
+    </div>
+
+    <!-- POSTS MODEL  -->
+    <div class="modal-overlay" id="postsModalOverlay">
+      <div class="modal" id="postModal">
+        <span class="close-btn" id="closePostBtn">×</span>
+        <h2>Post Add</h2>
+        <input id="Add-title" type="text" placeholder="Title" required />
+        <input id="price" type="number" placeholder="Price" required />
+        <textarea name="post-details" id="post-details"> Add Details</textarea>
+        <!-- <input id="post-details" type="text" placeholder="Price" required /> -->
+
+        <button id="post-Btn">Post</button>
       </div>
     </div>
 

@@ -304,6 +304,7 @@ footer {
   background: white;
   border-radius: 10px;
   width: 90%;
+  height: auto;
   max-width: 400px;
   padding: 20px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
@@ -336,6 +337,13 @@ footer {
   border-radius: 6px;
 }
 
+.modal textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
 .modal button {
   width: 100%;
   padding: 10px;
