@@ -436,12 +436,18 @@ footer {
   }
 }
 /* Product Card Container */
-/* #products-container {
+#products-container {
   display: flex;
+  justify-content: space-between;
   gap: 15px;
-  margin: 0px 10px;
+  margin: 10px auto;
   flex-wrap: wrap;
-} */
+}
+
+#products-container a {
+  text-decoration: none;
+}
+
 /* Product Card */
 .product-grid {
   display: grid;
@@ -456,6 +462,7 @@ footer {
   background-color: white;
   border-radius: 8px;
   overflow: hidden;
+  max-width: 370px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }

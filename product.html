@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>OLX Pakistan</title>
+    <link rel="stylesheet" href="./styles/product.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
       rel="stylesheet"
@@ -102,7 +103,84 @@
       <a href="#">Tablets</a>
       <a href="#">Land & Plots</a>
     </div>
-    <div id="products-container" class="product-grid"></div>
+    <!-- <div id="products-container" class="product-grid"></div> -->
+    <div class="container" id="addContainer">
+      <div class="left-column">
+        <!-- Image Gallery -->
+        <div class="image-gallery">
+          <div class="main-image" id="display-image"></div>
+        </div>
+        <!-- Product Header -->
+        <div class="product-header">
+          <div class="product-prices" id="priceContainer">Rs 4.09 Lac</div>
+          <h1 class="product-title" id="addTitle"></h1>
+          <hr />
+        </div>
+
+        <!-- Product Details -->
+        <div class="product-details" id="productDetails">
+          <!-- <table class="details-table">
+            <tr>
+              <td>Name</td>
+              <td><strong>Suzuki</strong></td>
+            </tr>
+            <tr>
+              <td>Model</td>
+              <td><strong>GS 160 SE</strong></td>
+            </tr>
+            <tr>
+              <td>Year</td>
+              <td>2022</td>
+            </tr>
+            <tr>
+              <td>Engine Type</td>
+              <td>4 800s</td>
+            </tr>
+          </table> -->
+        </div>
+
+        <!-- Promo Section -->
+        <div class="promo-section">
+          <h3 class="promo-title">Blaze - Aagay Barhnay ki Adat</h3>
+          <p class="promo-text">Find the best Lubricant for your Bike</p>
+          <a href="#" class="learn-more">LEARN MORE</a>
+        </div>
+      </div>
+
+      <!-- Right Column - Owner Info -->
+      <div class="right-column">
+        <div class="owner-card">
+          <div class="owner-header">
+            <div class="owner-avatar">
+              <img
+                src="https://randomuser.me/api/portraits/men/42.jpg"
+                alt="Owner"
+              />
+            </div>
+            <div>
+              <div class="owner-name" id="ownerName"></div>
+              <div class="owner-status">Member since Jan 2020</div>
+            </div>
+          </div>
+
+          <a href="#" class="contact-btn">
+            <i class="fas fa-phone-alt"></i> Show Phone Number
+          </a>
+
+          <div class="owner-details">
+            <p><strong>About the seller:</strong></p>
+            <p>
+              Genuine bike seller with 5 years of experience. All bikes are
+              properly maintained and verified.
+            </p>
+          </div>
+
+          <div class="member-since">
+            <i class="far fa-user"></i> OLX Member since 2020
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- model -->
     <!-- Trigger buttons -->
     <!-- <button id="openSignupBtn">Open Signup</button> -->
@@ -221,6 +299,7 @@
     <script type="module" src="./modal.js"></script>
     <script type="module" src="./config.js"></script>
     <script type="module" src="./methods.js"></script>
+    <script type="module" src="./product.js"></script>
     <script type="module" src="./app.js"></script>
   </body>
 </html>

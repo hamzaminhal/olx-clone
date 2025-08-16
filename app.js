@@ -24,15 +24,73 @@ let loggedEmailDiv = document.getElementById("logged-email");
 let showDetails = true;
 const logoutBtn = document.getElementById("logoutBtn");
 const postBtn = document.getElementById("post-Btn");
-let allUsers = [];
+let productsCardContainer = document.getElementById("products-container");
+let allPosts = [];
 let currentUser;
 
-// FETCH USERS
-const querySnapshot = await getDocs(collection(db, "users"));
-querySnapshot.forEach((doc) => {
-  allUsers.push(doc.data());
-  console.log(`${doc.id} => `, doc.data());
-});
+// FETCH DATA
+async function fetchData() {
+  showLoader();
+  // CHECK CURRENT USER
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      currentUser = user;
+      // console.log(currentUser);
+
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/auth.user
+      const uid = user.uid;
+      openLoginBtn.style.display = "none";
+      profileImg.style.display = "block";
+      // loggedUserNameDiv.innerText = user.firstName;
+      loggedEmailDiv.innerText = user.email;
+    } else {
+      // User is signed out
+      openLoginBtn.style.display = "block";
+      profileImg.style.display = "none";
+      // ...
+    }
+  });
+  // FETCH DATA
+  const querySnapshot = await getDocs(collection(db, "allPosts"));
+  querySnapshot.forEach((doc) => {
+    allPosts.push({ id: doc.id, ...doc.data() });
+    let post = doc.data();
+    // console.log(`${doc.id} => `, doc.data());
+
+    if (productsCardContainer) {
+      productsCardContainer.innerHTML += `
+    <a href="./product.html?pid=${doc.id}" target="_blank">
+  <div class="product-card">
+        <div class="product-image">
+          <img
+            src=${post.Img}
+            alt="${post.title}"
+          />
+          <div class="product-price">Rs ${post.price}</div>
+        </div>
+        <div class="product-details">
+          <h3 class="product-title">
+            ${post.title}
+          </h3>
+          
+          <div class="product-location">
+            <i class="fas fa-map-marker-alt"></i>
+            DHA Phase 8, Lahore
+          </div>
+          <div class="product-time">Post Time: ${new Date(post.postTime)}</div>
+        </div>
+      </div>
+      </a>
+  `;
+    }
+  });
+  hideLoader();
+}
+fetchData();
+
+// console.log(allUsers);
 
 // CLASS FOR MAKING NEW USERS
 class registerUser {
@@ -54,6 +112,7 @@ class post {
       (this.title = title),
       (this.price = price),
       (this.description = description);
+    this.createdAt = new Date().toISOString();
   }
 }
 
@@ -139,27 +198,6 @@ function logUserOut() {
 
 logoutBtn.addEventListener("click", logUserOut);
 
-// CHECK CURRENT USER
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    currentUser = user;
-    console.log(currentUser);
-
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/auth.user
-    const uid = user.uid;
-    openLoginBtn.style.display = "none";
-    profileImg.style.display = "block";
-    // loggedUserNameDiv.innerText = user.firstName;
-    loggedEmailDiv.innerText = user.email;
-  } else {
-    // User is signed out
-    openLoginBtn.style.display = "block";
-    profileImg.style.display = "none";
-    // ...
-  }
-});
-
 //TOGGLE BUTTON ON PROFILE IMAGE
 profileImg.addEventListener("click", () => {
   if (showDetails) {
@@ -191,14 +229,20 @@ async function addDatatoDb(newUser) {
 }
 
 postBtn.addEventListener("click", () => {
-  let image = "https://images.app.goo.gl/oM4fiszzYjPx4Tej9";
-  let title = document.getElementById("Add-title");
-  let price = document.getElementById("price");
-  let description = document.getElementById("post-details");
-  let newPost = new post(image, title.value, price.value, description.value);
-  console.log(newPost);
-  addPostsToDb(newPost);
-  showLoader();
+  if (currentUser) {
+    console.log("entered");
+    let image =
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGw-k4MBGl_0dBibfnePkOnq6sBsUHCnnAsA&s";
+    let title = document.getElementById("Add-title");
+    let price = document.getElementById("price");
+    let description = document.getElementById("post-details");
+    let newPost = new post(image, title.value, price.value, description.value);
+    console.log(newPost);
+    addPostsToDb(newPost);
+    showLoader();
+  } else {
+    swal("Error", "Please Login first!", "error");
+  }
 });
 
 async function addPostsToDb(post) {
@@ -209,13 +253,15 @@ async function addPostsToDb(post) {
       title: post.title,
       price: post.price,
       description: post.description,
+      postTime: post.createdAt,
     });
     swal("success", "Add posted successfully", "success").then(() => {
-      hideLoader();
-      postsModelOverly.style.display = "none";
+      location.reload();
     });
     console.log("Document written with ID: ", docRef.id);
   } catch (e) {
     console.error("Error adding document: ", e);
   }
 }
+
+export { currentUser };

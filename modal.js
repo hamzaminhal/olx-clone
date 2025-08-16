@@ -1,3 +1,5 @@
+import { currentUser } from "./app.js";
+
 // Element selectors
 const modalOverlay = document.getElementById("modalOverlay");
 const loginModal = document.getElementById("loginModal");
@@ -20,37 +22,41 @@ const postsModelOverly = document.getElementById("postsModalOverlay");
 const closePostBtn = document.getElementById("closePostBtn");
 
 // Open modal
-openLoginBtn.addEventListener("click", () => {
+openLoginBtn?.addEventListener("click", () => {
   modalOverlay.style.display = "flex";
   loginModal.style.display = "block";
   signupModal.style.display = "none";
 });
 
-sellBtn.addEventListener("click", () => {
-  postsModelOverly.style.display = "flex";
+sellBtn?.addEventListener("click", () => {
+  if (currentUser) {
+    postsModelOverly.style.display = "flex";
+  } else {
+    swal("Error", "Please Login first!", "error");
+  }
 });
 
 // Close modal
-closeLoginBtn.addEventListener("click", () => {
+closeLoginBtn?.addEventListener("click", () => {
   modalOverlay.style.display = "none";
 });
 
-closeSignupBtn.addEventListener("click", () => {
+closeSignupBtn?.addEventListener("click", () => {
   modalOverlay.style.display = "none";
 });
 
-closePostBtn.addEventListener("click", () => {
+closePostBtn?.addEventListener("click", () => {
   postsModelOverly.style.display = "none";
 });
 
 // Switch forms
-switchToSignup.addEventListener("click", (e) => {
+switchToSignup?.addEventListener("click", (e) => {
   e.preventDefault();
   loginModal.style.display = "none";
   signupModal.style.display = "block";
 });
 
-switchToLogin.addEventListener("click", (e) => {
+switchToLogin?.addEventListener("click", (e) => {
   e.preventDefault();
   signupModal.style.display = "none";
   loginModal.style.display = "block";
@@ -60,7 +66,7 @@ function toggleMenu() {
   document.querySelector("header").classList.toggle("active");
 }
 
-hamburger.addEventListener("click", toggleMenu);
+hamburger?.addEventListener("click", toggleMenu);
 
 // Show loader
 function showLoader() {
